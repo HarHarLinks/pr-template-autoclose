@@ -7,13 +7,18 @@ on:
 jobs:
   missing-template:
     runs-on: ubuntu-latest
+    env:
+      CHECKOUT_DIR: my-repo
 
     steps:
       - uses: actions/checkout@v5
+        with:
+          path: ${{ env.CHECKOUT_DIR }}
 
       - name: Check if the PR template was deleted
         env:
           GH_TOKEN: ${{ github.token }}
+        working-directory: ${{ env.CHECKOUT_DIR }}
         run: |
           if ! gh pr view --json 'body' | grep -q "Please don't remove this checklist"; then
             gh pr ready --undo  # mark as draft
