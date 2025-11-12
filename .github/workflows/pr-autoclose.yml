@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout
+
       - name: Check if the PR template was deleted
         env:
           GH_TOKEN: ${{ github.token }}
