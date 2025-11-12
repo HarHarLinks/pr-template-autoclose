@@ -19,7 +19,7 @@ jobs:
       - name: Check if the PR template was deleted
         env:
           GH_TOKEN: ${{ github.token }}
-          BASE_URL: ${{ github.server.url }}/${{ github.repository }}/blob/${{ github.base.ref }}
+          BASE_URL: ${{ github.server.url }}/${{ github.repository }}/blob/main
         working-directory: ${{ env.CHECKOUT_DIR }}
         run: |
           if ! gh pr view $GITHUB_HEAD_REF --json 'body' | grep -q "Please don't remove this checklist"; then
