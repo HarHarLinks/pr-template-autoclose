@@ -10,6 +10,8 @@ jobs:
 
     steps:
       - name: Check if the PR template was deleted
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           if ! gh pr view -q '.body' | grep -q "Please don't remove this checklist"; then
             gh pr ready --undo  # mark as draft
