@@ -1,0 +1,18 @@
+name: Auto-draft PRs missing template
+
+on:
+  pull_request:
+    types: [opened, reopened]  # https://docs.github.com/en/webhooks/webhook-events-and-payloads?actionType=ready_for_review#pull_request
+
+jobs:
+  missing-template:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check if the PR template was deleted
+        run: |
+          if gh pr view -q '.body' | grep -q 'Please don't remove this checklist'; then
+            gh pr ready --undo  # mark as draft
+            gh pr edit --add-label 'missing-template'
+            gh pr review --request-changes --body 'Thanks for contributing to the matrix.org website.\n\nI have automatically marked you pull request as a draft. Please restore the [PR template](/.github/pull_request_template.md) to your PR description and follow our [contributing guidelines](/CONTRIBUTING.md), then undraft to let the team know the PR is ready for review.'
+          fi
