@@ -15,7 +15,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if ! gh pr view --json --jq '.body' | grep -q "Please don't remove this checklist"; then
+          if ! gh pr view --json 'body' | grep -q "Please don't remove this checklist"; then
             gh pr ready --undo  # mark as draft
             gh pr edit --add-label 'missing-template'
             gh pr review --request-changes --body 'Thanks for contributing to the matrix.org website.\n\nI have automatically marked you pull request as a draft. Please restore the [PR template](/.github/pull_request_template.md) to your PR description and follow our [contributing guidelines](/CONTRIBUTING.md), then undraft to let the team know the PR is ready for review.'
