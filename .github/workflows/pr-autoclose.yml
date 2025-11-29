@@ -2,7 +2,7 @@ name: Auto-draft PRs missing template
 
 on:
   pull_request:
-    types: [opened, reopened]  # https://docs.github.com/en/webhooks/webhook-events-and-payloads?actionType=ready_for_review#pull_request
+    types: [opened, reopened, ready_for_review]  # https://docs.github.com/en/webhooks/webhook-events-and-payloads?actionType=ready_for_review#pull_request
 
 jobs:
   missing-template:
